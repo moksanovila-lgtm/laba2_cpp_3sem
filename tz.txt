@@ -80,3 +80,70 @@ UI-меню — ~100 строк.
 
 Итого ~800–900 строк — реально за 2–3 недели спокойного темпа, и всё переиспользует ваш BST, а не выбрасывает работу из ЛР-1.
 
+
+
+
+lr2/                                  ← корень репозитория
+├── .gitmodules
+├── .gitignore
+├── CMakeLists.txt
+├── README.md
+│
+├── external/
+│   ├── laba_1_cpp_3_sem/             ← сабмодуль №1: BST (3 семестр)
+│   │   └── BinaryTree.h
+│   └── laba_1_sem_2/                 ← сабмодуль №2: Sequence (2 семестр)
+│       ├── ICollection.hpp
+│       ├── IEnumerator.hpp
+│       ├── Sequence.hpp
+│       ├── ArraySequence.hpp
+│       ├── ListSequence.hpp
+│       ├── DynamicArray.hpp
+│       └── LinkedList.hpp
+│
+├── include/                          ← всё ядро — header-only (.hpp)
+│   ├── Person.hpp                    ← класс Person (методы Get*)
+│   ├── CsvLoader.hpp                 ← загрузка/сохранение CSV → ArraySequence<Person>
+│   ├── IDictionary.hpp               ← интерфейс (методичка п. 8)
+│   ├── HashFunctions.hpp             ← StringHash для std::string
+│   ├── HashIndexChain.hpp            ← M-5.1: цепочки
+│   ├── HashIndexOpen.hpp             ← M-5.2: открытая адресация
+│   ├── TreeIndex.hpp                 ← обёртка над BinaryTree
+│   ├── ExtractKey.hpp                ← Person + атрибут → ключ (std::string)
+│   ├── PersonIndexer.hpp             ← Build(data, attributes) → набор IDictionary
+│   └── Benchmark.hpp                 ← замеры, CSV-выгрузка
+│
+├── src/
+│   └── main.cpp                      ← консольный запуск (опционально) или Qt UI
+│
+├── ui/                               ← Qt UI (отдельно от ядра)
+│   ├── MainWindow.hpp
+│   ├── MainWindow.cpp
+│   ├── PersonTableModel.hpp
+│   ├── PersonTableModel.cpp
+│   ├── BenchmarkWorker.hpp
+│   └── BenchmarkWorker.cpp
+│
+├── tests/
+│   ├── CMakeLists.txt
+│   ├── test_main.cpp                 ← точка входа Catch2
+│   ├── test_person.cpp
+│   ├── test_csv_loader.cpp
+│   ├── test_hash_chain.cpp
+│   ├── test_hash_open.cpp
+│   ├── test_tree_index.cpp
+│   └── test_person_indexer.cpp
+│
+├── data/
+│   ├── persons_1000.csv
+│   ├── persons_5000.csv
+│   ├── persons_10000.csv
+│   ├── persons_50000.csv
+│   └── test/
+│       ├── empty.csv
+│       ├── one.csv
+│       ├── same_lastname.csv
+│       └── sorted.csv
+│
+└── results/
+    └── .gitkeep                      ← results.csv не коммитится
